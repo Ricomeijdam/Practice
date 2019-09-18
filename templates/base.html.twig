@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link p-2 text-light" href="{{ path('default') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link p-2 text-light" href="{{ path('product_index') }}">Product</a></li>
+                <li class="nav-item"><a class="nav-link p-2 text-light" href="{{ path('orders_index') }}">Orders</a></li>
+                <li class="nav-item"><a class="nav-link p-2 text-light" href="{{ path('product_orders_index') }}">ProductOrders</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link p-2 text-light" href="{{ path('cart') }}">
+                        Cart
+                        <span class="badge">
+                                <i class="fas fa-shopping-cart"></i>
+                            {% for item in app.session.get("Cart") %}
+                                {% if item["Aantal"] is defined %}
+                                    <span class="Aantal" style="display: none;">{{ item["Aantal"] }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+{% block body %}
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+<script>
+    const amounts = document.getElementsByClassName('Aantal');
+    let total = 0;
+    for (let x = 0; x < amounts.length; x++) {
+        const amount = parseInt(amounts[x].innerText);
+        total += amount
+    }
+    document.getElementsByClassName('fa-shopping-cart')[0].innerHTML = " " + total
+
+</script>
+<script src="https://kit.fontawesome.com/525e4431a2.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

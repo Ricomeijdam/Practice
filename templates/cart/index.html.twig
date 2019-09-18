@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+    <h2>Winkelwagen</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Taxcode</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in Products %}
+        <tr>
+            <td>{{ product.Product.Name }}</td>
+            <td>{{ product.Product.Description }}</td>
+            <td>{{ product.Product.Taxcode }}%</td>
+            <td><span>€ {{ product.Product.Price }}</span></td>
+            <td>
+                <a class="btn btn-outline-success" href="{{ path('cart_add', {'id': product.Product.id}) }}">Add</a>
+                <a class="btn btn-outline-danger" href="{{ path('cart_remove', {'id': product.Product.id}) }}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+        <tr>
+            <th>Totaal: € <span>{{ totaal }}</span></th>
+        </tr>
+    </table>
+
+    <div>
+        {#<a class="btn btn-outline-success" href="{{ path('checkout') }}">Afrekenen</a>#}
+        <span><a class="btn btn-outline-info" href="{{ path('product_index') }}">Veder winkelen</a></span>
+    </div>
+
+
+{% endblock %}

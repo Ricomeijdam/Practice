@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductOrders index{% endblock %}
+
+{% block body %}
+    <h1>ProductOrders index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product_order in product_orders %}
+            <tr>
+                <td>{{ product_order.id }}</td>
+                <td>{{ product_order.Amount }}</td>
+                <td>
+                    <a href="{{ path('product_orders_show', {'id': product_order.id}) }}">show</a>
+                    <a href="{{ path('product_orders_edit', {'id': product_order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_orders_new') }}">Create new</a>
+{% endblock %}
